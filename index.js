@@ -4,19 +4,13 @@
 // prints fizz when the number is divisible by 3
 // prints buzz if the number is divisible by 3 and 5
 
-module.exports = function runFizzBuzz(n=30) {
+
+function runFizzBuzz(n=30) {
   if ( n > 40) n = 40;
   if ( n < 1 ) n = 1;
 
   let resultArray = [];
   let result = {};
-  result.format = function format(arr) {
-    return arr.join('\n')
-  }
-  result.print = function print(str) {
-    console.log(str)
-    return true;
-  }
 
   for (let i = 0; i < n; i++) {
     let val = i+1;
@@ -28,5 +22,37 @@ module.exports = function runFizzBuzz(n=30) {
 
   result.items = resultArray;
 
+  result.format = function format(arr) {
+    return arr.join('\n')
+  }
+
+  result.print = function print(str) {
+    if (result.items.length > -1) {
+        header();
+        breaker();
+        console.log(result.format(result.items));
+        breaker();
+    }
+    return true;
+  }
+
   return result;
 }
+
+function header() {
+    console.log('\n========================');
+    console.log('## FizzBuzz w/ Tests\n');
+    console.log('- to run the test');
+    console.log('--> npm run test');
+}
+
+function breaker() {
+    console.log('\n------------------------- ');
+    console.log('------------------------- \n');
+}
+
+if ( __filename === process.argv[1] ) {
+    runFizzBuzz().print();
+}
+
+module.exports = runFizzBuzz;
